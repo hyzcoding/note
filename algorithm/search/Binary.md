@@ -4,7 +4,7 @@
 
 ## 算法实现
 ```java
-public int binarySort(int[] array,int target){
+public int binarySearch(int[] array,int target){
     if (nums.length == 0) return -1;
     int left=0;
     int right=array.length-1;
