@@ -1,4 +1,4 @@
-# [首页]([https://hyzcoding.github.io/note/)
+# [首页](https://hyzcoding.github.io/note/)
 
 > 个人笔记
 [github地址](https://hyzcoding.github.io/note/)

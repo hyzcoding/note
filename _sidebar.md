@@ -18,6 +18,7 @@
         - [KMP](algorithm/KMP)
         - [BFS](algorithm/BFS)
         - [DFS](algorithm/DFS)
+    - [设计模式](design-pattern/)
     - [运维](devops/)
         - docker
         - elk
@@ -60,6 +61,10 @@
     - [脚本](script/)
         - [bash脚本](script/bash)
         - [markdown语法](script/markdown)
+    - SOA
+        - [消息队列](soa/mq/)
+            - [Kafka](soa/mq/kafka)
+            - [RabbitMQ](soa/mq/rabbitmq)
     - [源码解析](source/)
         - [netty](source/netty)
         - [spring-core](source/spring-core)
@@ -90,9 +95,6 @@
         - [代码提交](toolapp/code/)
             - [Git](toolapp/code/git)
             - [SVN](toolapp/code/svn)
-        - [消息队列](toolapp/mq/)
-            - [Kafka](toolapp/mq/kafka)
-            - [RabbitMQ](toolapp/mq/rabbitmq)
         - [Maven](toolapp/maven)
         - [nginx](toolapp/nginx)
         - [zookeeper](toolapp/zookeeper)

@@ -71,26 +71,26 @@ public class RedisConfig extends CachingConfigurerSupport {
 ## 使用
 
 ```java
-@Cacheable(value = "person" ,key = "#p0.id", condition = "#p0.age > 18")
+@Cacheable(value = "person" ,key = "#p0.id", condition = "#p0.age > 18") // 设置缓存
 public Person selectOne(Person person) {
     return personDao.selectOne(uid);
 }
-@CachePut(value = "person" ,key = "#p0.id")
+@CachePut(value = "person" ,key = "#p0.id") // 更新缓存
 public Person update(Person person) {
     return personDao.selectById(id);
 }
 
-@Cacheable(value = "person" ,key = "#id")
+@Cacheable(value = "person" ,key = "#id") // 设置缓存
 public Person selectById(String id) {
     return personDao.selectById(id);
 }
 
-@CacheEvict(value="person",key="#id")
+@CacheEvict(value="person",key="#id") // 清除缓存
 public void deleteById(String id) {
     personDao.deleteById(id);
 }
 
-@CacheEvict(value="person",allEntries=true)
+@CacheEvict(value="person",allEntries=true) // 清除缓存
 public void delectAll() {
     personDao.deleteAll();
 }
