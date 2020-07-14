@@ -2,13 +2,13 @@
 
 # hyzcoding
 
-> A magical documentation site generator.
+> 学习笔记
 
-* Simple and lightweight (~12kb gzipped)
-* Multiple themes
-* Not build static html files
+* JAVA
+* JS
+* HTML
 
-![logo](https://avatars0.githubusercontent.com/u/37624878?s=400&u=2ad932012f41d7b761694a15ba8910d54ac36a6c&v=4 ':size=100')
+![logo](_media/logo.png ':size=100')
 
 [GitHub](https://hyzcoding.github.io)
-[Get Started](#首页)
+[首页](#首页)
