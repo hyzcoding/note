@@ -22,7 +22,6 @@
 ```java
 @Configuration
 @ComponentScan
-@EnableAutoConfiguration
 public class WebSocketConfig implements ServletContextInitializer {
     @Bean
     public ServerEndpointExporter serverEndpointExporter() {
@@ -55,7 +54,7 @@ public class SocketService {
      *  @param userId 客户端id
      */
     @OnOpen
-    public void onOpen(@PathParam("user_id" String userId){
+    public void onOpen(@PathParam("user_id") String userId, Session session){
         
     }
     /**
@@ -84,4 +83,6 @@ public class SocketService {
     }
 }
 ```
+
+## 扩展
 
