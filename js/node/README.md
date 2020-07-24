@@ -9,8 +9,17 @@
 ## 安装
 
 1. [官网下载](https://nodejs.org/zh-cn/download/)
+
 2. 解压安装
-3. 检查版本 `> node --version`
+
+3. 配置环境变量`NODE_PATH`
+
+   ```bash
+   npm config set cache "D:\nodejs\node_cache" # 设置缓存
+   npm config set prefix "D:\nodejs\node_global" # 设置全局
+   ```
+
+4. 检查版本 `> node --version`
 
 ## npm
 
@@ -39,8 +48,9 @@
 - 运行任务
 
     ```bash
-> npm run <task> # 运行指定任务
+    > npm run <task> # 运行指定任务
     ```
+
     
     ```javascript
         "scripts": {
@@ -49,7 +59,7 @@
             "lint": "vue-cli-service lint"
         },
     ```
-    
+
 - 查看已安装
 
     ```bash
@@ -71,7 +81,7 @@
 
 ```bash
 ## 安装
-> npm install -g cnpm --registry=https://registry.npm.taobao,org
+> npm install -g cnpm --registry=https://registry.npm.taobao.org
 > cnpm install <package>
 ```
 

@@ -19,7 +19,30 @@ mybatis:
   mapper-locations: classpath:mapper/*.xml
 ```
 
+## 使用
+
+```java
+@Mapper
+public interface PersonDao {
+    int insertOne(Person person);
+    Person selectOne(Person person);
+}
+```
+
+
+
 ## xml映射文件
+
+```xml
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
+        "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+<mapper namespace="com.hyzcoding.dao.PersonDao">
+</mapper>
+```
+
+
 
 - #### insert
 ```xml
@@ -30,7 +53,7 @@ mybatis:
 
 - #### select
 ```xml
-<select id="insertOne"  parameterType="cn.hyzcoding.Person"  resultMap="person">
+<select id="selectOne"  parameterType="cn.hyzcoding.Person"  resultMap="person">
 	select * from table_person
       <where>
         <if test="id != null">
@@ -47,7 +70,7 @@ mybatis:
 ```
 - #### update
 ```xml
-<update id="insertOne"  parameterType="cn.hyzcoding.Person">
+<update id="updateOne"  parameterType="cn.hyzcoding.Person">
 	update table_person
     <set>
       <if test="id != null">id=#{id},</if>
@@ -59,7 +82,7 @@ mybatis:
 ```
 - #### delete
 ```xml
-<delete id="insertOne"  parameterType="cn.hyzcoding.Person">
+<delete id="deleteOne"  parameterType="cn.hyzcoding.Person">
 	delete from table_person
       <where>
         <if test="id != null">

@@ -58,3 +58,5 @@
 
 [23种设计模式全面解析]: http://c.biancheng.net/design_pattern/
 
+[Design patterns implemented in Java]: https://github.com/iluwatar/java-design-patterns
+

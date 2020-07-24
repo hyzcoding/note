@@ -4,12 +4,12 @@ spring 快速搭建脚手架，基于SpringFramework。
 
 #### 特性
 
-		1. 创建独立的spring应用
-  		2. 内嵌servlet容器(Tomcat、Jetty、Undertow)
-                		3. 提供固化的"starter"依赖，简化构建配置
-            		4. 自动装配Spring或第三方类库
-                      		5. 提供运维特性
-          		6. 无代码生成，不需xml配置
+1.  创建独立的spring应用
+2.  内嵌servlet容器(Tomcat、Jetty、Undertow)
+3.  提供固化的"starter"依赖，简化构建配置
+4.  自动装配Spring或第三方类库
+5.  提供运维特性
+6.  无代码生成，不需xml配置
 
 #### 导入
 

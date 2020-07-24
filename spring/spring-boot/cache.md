@@ -38,7 +38,11 @@ public class ExampleApplication{
 ```java
 @Configuration
 public class RedisConfig extends CachingConfigurerSupport {
-
+	/**
+	*
+	* 配置redis 序列化
+	*
+	*/
     @Bean
     public RedisTemplate redisTemplate(RedisConnectionFactory factory) {
 

@@ -36,5 +36,21 @@ public void useList(){
 
 
 
+
+
+
+
 ## 源码解析
+
+### ArrayList
+
+`ensureCapacity()`该方法的作用是预先设置Arraylist的大小，这样可以大大提高初始化速度。
+
+
+
+### LinkedList
+
+
+[【程序员】你知道 if(a&lt;b) 和 if (a - b &lt; 0) 的区别吗？]: https://zhuanlan.zhihu.com/p/100590364
+[Difference between if (a - b < 0) and if (a< b)]: https://stackoverflow.com/questions/33147339/difference-between-if-a-b-0-and-if-a-b
 
