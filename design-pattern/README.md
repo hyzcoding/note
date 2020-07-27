@@ -26,11 +26,84 @@
 
 - #### 抽象工厂(Abstract Factory)
 
+  ```java
+  
+  ```
+
+  
+
 - ####  生成器(Builder)
 
 - ####  工厂方法(Factory Method)
+
 - ####  原型(Prototype)
+
+  ```java
+  /**
+   *
+   * 克隆拷贝对象
+   * (1)浅拷贝：我们只拷贝对象中的基本数据类型（8种），对于数组、容器、引用对象等都不会拷贝
+   * (2)深拷贝：不仅能拷贝基本数据类型，还能拷贝那些数组、容器、引用对象等
+   *
+   */
+  public class A implements Cloneable{
+     private B b;
+      
+     @Override
+     protected A clone(){
+         A a = null;
+         try{
+             B bb = b.clone();
+             a = (A) super.clone();
+             a.setB(bb);
+         }catch (CloneNotSupportedException e){
+              e.printStackTrace();
+          }
+     }
+  }
+  ```
+
+  
+
 - ####  单例(Singleton)
+
+  ```java
+  /**
+   *
+   * 节省内存资源、保证数据内容的一致性
+   *
+   */
+  // 1. 懒汉式 线程安全，调用效率不高 可以延时加载
+      public class A{
+          
+          private static volatile A a= null;
+          
+          private A();
+         // 双重检查锁在多线程并发时，可能会因为JVM指令重排出问题  volatile 解决此问题
+          public static A getInstance(){
+             if(a == null){
+                 synchronized(A.class){
+                      if (a == null){
+  						a = new A();	
+              		}
+                 }
+             }
+              return a;
+          }
+      }
+  // 2. 饿汉式 线程安全，调用效率高 不能延时加载
+  	public class B{
+          private static final B b = new B();
+          
+          private B(){}
+          
+          public static B getInstance(){
+              return B;
+          }
+      }
+  ```
+
+  
 
 ## 结构型模式
 
