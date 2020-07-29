@@ -27,6 +27,7 @@
 ```bash
 > sudo systemctl start docker # 启动
 > sudo docker run hello-world # 运行
+> sudo docker stop hello-world # 停止
 ```
 
 

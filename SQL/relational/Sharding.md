@@ -2,6 +2,12 @@
 
 ## 简介
 
+> 是一种水平数据拆分，会按照如ID、用户、时间等维度进行拆分，拆分算法/策略可以是取模、哈希、区间或者数据路由表等。
+
+
+
+> 部署多个redis实例，通过Twemproxy并使用一致性哈希算法进行分片，先通过HaProxy进行Twemproxy的负载均衡，然后通过内网域名进行访问。
+
 ## 中间件
 
 ### [ShardingSphere](http://shardingsphere.apache.org/)
@@ -22,3 +28,4 @@
 - **Sharding-Proxy**
 
 - **Sharding-Sidecar**
+

@@ -136,7 +136,18 @@ public class NameConfiguration{
 > </beans>
 > ```
 
+- controller
 
+  | 注解              | 详细信息   |
+  | ----------------- | ---------- |
+  | `@RequestMapping` | 通用请求   |
+  | `@GetMapping`     | Get请求    |
+  | `@PostMapping`    | Post请求   |
+  | `@PutMapping`     | Put请求    |
+  | `@DeleteMapping`  | Delete请求 |
+  | `@PatchMapping`   | Patch请求  |
+
+  
 
 ## 异步
 

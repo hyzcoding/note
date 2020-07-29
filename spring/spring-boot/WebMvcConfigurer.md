@@ -20,7 +20,7 @@ void configureViewResolvers(ViewResolverRegistry registry);
 /* 配置内容裁决的一些选项*/
 void configureContentNegotiation(ContentNegotiationConfigurer configurer);
 /** 解决跨域问题 **/
-public void addCorsMappings(CorsRegistry registry) ;
+void addCorsMappings(CorsRegistry registry) ;
 /** 参数解析 **/
 void addArgumentResolvers(List<HandlerMethodArgumentResolver> resolvers)
 
