@@ -28,6 +28,8 @@
 > sudo systemctl start docker # 启动
 > sudo docker run hello-world # 运行
 > sudo docker stop hello-world # 停止
+> sudo docker pause : # 暂停容器中所有的进程。
+> sudo docker unpause : # 恢复容器中所有的进程。
 ```
 
 
