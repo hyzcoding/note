@@ -120,3 +120,12 @@
 [Install Elasticsearch with Docker]: https://www.elastic.co/guide/en/elasticsearch/reference/7.5/docker.html
 [Spring Data Elasticsearch - Reference Documentation]: https://docs.spring.io/spring-data/elasticsearch/docs/3.2.9.RELEASE/reference/html/#reference
 
+## 扩展
+
+- elasticsearch-sql-cli
+
+  ```sql
+  SELECT * FROM AAA;
+  ```
+
+  
