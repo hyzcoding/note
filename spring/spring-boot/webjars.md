@@ -37,6 +37,10 @@
     }
 ```
 
+```properties
+spring.resources.static-locations=file:///E://resources/static
+```
+
 
 
 ## 使用

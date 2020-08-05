@@ -1,6 +1,10 @@
+# [mybatis](https://mybatis.org/mybatis-3/zh/index.html)
+
 ## 简介
 
-[mybatis](https://mybatis.org/mybatis-3/zh/index.html)
+> 1. 封装了jdbc的半ORM（对象关系映射）框架。
+> 2. 使用 XML 或注解来配置和映射原生信息， POJO映射成数据库中的记录。
+> 3. 通过xml 文件或注解的方式将要执行的各种 statement 配置起来，并通过java对象和 statement中sql的动态参数进行映射生成最终执行的sql语句，最后由mybatis框架执行sql并将结果映射为java对象并返回。
 
 ## 导入
 
@@ -195,6 +199,10 @@ public class MasterDataSourceConfig {
  
 }
 ```
+
+## 扩展
+
+
 
 ## 源码解析
 

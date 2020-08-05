@@ -39,5 +39,5 @@
   @Cleanup OutputStream out = new FileOutputStream(args[1]);
   ```
 
-  `@Builder`：用在类、构造器、方法上，为你提供复杂的 builder APIs，让你可以像如下方式一样调用Person.builder().name("xxx").city("xxx").build()；
+  `@Builder`：用在类、构造器、方法上，为你提供复杂的 builder APIs，让你可以像如下方式一样调用`Person.builder().name("xxx").city("xxx").build()；`
 

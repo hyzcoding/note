@@ -35,6 +35,7 @@
             - [同步](J2EE/Concurrent/同步)
             - [线程与并发](J2EE/Concurrent/线程与并发)
             - [JUC](J2EE/Concurrent/J.U.C)
+            - [Reactor线程模型](J2EE/Concurrent/Reactor线程模型)
         - 数据结构
             - [数据结构与算法](J2EE/datastructure/数据结构与算法)
             - [Iterator](J2EE/datastructure/Iterator)
@@ -48,8 +49,13 @@
             - [日期时间](J2EE/JAVA8/日期时间)
             - [注解](J2EE/JAVA8/注解)
             - [Optional](J2EE/JAVA8/Optional)
-        - 插件
-            - [fastjson](J2EE/plugins/fastjson)
+    - 插件
+        - [fastjson](plugins/fastjson)
+        - [guava](plugins/guava)
+        - [lombok](plugins/lombok)
+        - [pagehelper](plugins/pagehelper)
+        - [poi](plugins/poi)
+        - [swagger](plugins/swagger)
     - [JavaScript](js/)
         - [nodejs](js/node/)
         - [pugjs](js/pug/)

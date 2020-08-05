@@ -8,6 +8,13 @@
 
 > 部署多个redis实例，通过Twemproxy并使用一致性哈希算法进行分片，先通过HaProxy进行Twemproxy的负载均衡，然后通过内网域名进行访问。
 
+## 需要解决的问题
+
+1. 事务
+2. 跨节点join
+3. count、order by、group by 等聚合问题
+4. id自增
+
 ## 中间件
 
 ### [ShardingSphere](http://shardingsphere.apache.org/)
@@ -28,4 +35,6 @@
 - **Sharding-Proxy**
 
 - **Sharding-Sidecar**
+
+### mycat
 

@@ -1,8 +1,33 @@
+# Kafka
+
 ## 简介
+
+> **分布式、分区的、多副本的、多订阅者**，基于**zookeeper**协调的分布式日志系统（也可以当做MQ系统），常见可以用于web/nginx日志、访问日志，消息服务等等。
 
 ### 应用场景
 
-​	日志收集系统和消息系统
+	- 日志收集系统
+	- 消息系统
+	- 用户活动跟踪
+	- 运营指标
+	- 流式处理
+	- 事件源
+
+## 特性
+
+- 高吞吐量、低延迟
+- 可扩展性
+- 持久性、可靠性
+- 容错性
+- 高并发
+
+## 组件结构
+
+![结构图解](../../_media/kafka/constructor.png)
+
+kafka中的zookeeper，producer、consumer、broker三者通过zookeeper管理协调请求和转发，这其间的连接都是需要zookeeper来进行分发的。
+
+![结构图解](../../_media/kafka/zookeeper.png)
 
 ### 消息传递模式
 
@@ -73,4 +98,8 @@
   
 
 ## JAVA API
+
+[Kafka的简介与架构]: https://www.cnblogs.com/frankdeng/p/9310684.html
+
+[Kafka面试题]: https://zhuanlan.zhihu.com/p/94412266
 
