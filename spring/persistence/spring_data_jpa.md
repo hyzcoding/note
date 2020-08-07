@@ -24,11 +24,11 @@
       type: com.alibaba.druid.pool.DruidDataSource
       username: root
       password: root
-      driver-class-name: com.mysql.jdbc.Driver //驱动
+     driver-class-name: com.mysql.cj.jdbc.Driver # 驱动
     jpa:
       hibernate:
-        ddl-auto: update //自动更新
-      show-sql: true  //日志中显示sql语句
+        ddl-auto: update  # 自动更新
+      show-sql: true   # 日志中显示sql语句
   ```
 
 - entity
