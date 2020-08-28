@@ -91,8 +91,8 @@ kafka中的zookeeper，producer、consumer、broker三者通过zookeeper管理�
   ```bash
   > bin/zookeeper-server-start.sh config/zookeeper.properties
   
-  > bin/kafka-server-start.sh config/server-1.properties &
-  > bin/kafka-server-start.sh config/server-2.properties &
+  > bin/kafka-server-start.sh -daemon config/server-1.properties 
+  > bin/kafka-server-start.sh -daemon config/server-2.properties 
   ```
 
   

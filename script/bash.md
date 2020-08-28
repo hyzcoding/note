@@ -43,8 +43,8 @@
   ```bash
   > systemctl start sshd ## 启动
   > ssh -l username host ## 登录
-  > ssh root@host ## 登录
-  > scp root@host /filepath /filepath2 ## 远程复制
+  > ssh root@host commandline ## 登录
+  > scp root@host:/filepath /filepath2 ## 远程复制
   ```
 
 
@@ -68,3 +68,42 @@
   ```
 
   
+
+## 分区
+
+```bash
+umount /home #卸载/home，如果无法卸载，先终止使用/home文件系统的进程
+lvremove /dev/centos/home #删除/home所在的lv
+lvextend -L +50G /dev/centos/root #扩展/root所在的lv，增加50G
+xfs_growfs /dev/centos/root #扩展/root文件系统
+lvcreate -L 56G -n home centos #重新创建home lv
+mkfs.xfs /dev/centos/home #创建文件系统
+mount /dev/centos/home /home #挂载
+```
+
+[Linux 更改root与home分区大小的方法]: https://blog.csdn.net/qq_45664055/article/details/105366249
+
+## 文本处理
+
+```bash
+awk -F"separ" '{pattern + action}' {filenames}
+// aa.txt
+// aa=bb
+ awk -F"=" '{ print $2 }' aa.txt
+ // bb
+
+
+```
+
+## 脚本
+
+```bash
+#!/bin/sh
+for aa in `awk -F"=" '{ print $2 }' aa.txt`
+do
+ echo aa
+done
+```
+
+### vim
+
