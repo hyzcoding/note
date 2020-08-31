@@ -67,6 +67,7 @@
     - [脚本](script/)
         - [bash脚本](script/bash)
         - [markdown语法](script/markdown)
+        - [rust](script/rust)
     - [SOA](soa/soa)
         - [gRPC](soa/gRPC)
         - [RPC](soa/rpc)

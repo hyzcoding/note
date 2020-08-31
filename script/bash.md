@@ -44,7 +44,8 @@
   > systemctl start sshd ## 启动
   > ssh -l username host ## 登录
   > ssh root@host commandline ## 登录
-  > scp root@host:/filepath /filepath2 ## 远程复制
+  > scp root@host:/filepath /filepath2 ## 远程复制 filepath文件 到filepath2目录下
+  > scp -r ... ## 复制文件夹
   ```
 
 
