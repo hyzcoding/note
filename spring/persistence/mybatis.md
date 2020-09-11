@@ -75,6 +75,10 @@ public interface PersonDao {
 - #### update
 ```xml
 <update id="updateOne"  parameterType="cn.hyzcoding.Person">
+    <!-- order='AFTER' 更新后数据 -->
+    <selectKey keyProperty='id' resultType='java.lang.String' order='BEFORE'>
+            select person_name from table_person where id=#{id}
+  </selectKey>
 	update table_person
     <set>
       <if test="id != null">id=#{id},</if>

@@ -6,6 +6,51 @@
 
 **注意：**`Rust` 不支持 `++` 和`--`
 
+## 打印
+
+```rust
+println!("会保存
+    回车等格式");
+println!(r#"忽略"等字符，不需要转义,适合创建json"#);
+
+fn r#return(){}
+let r#let = 6; 
+r#return(); // 用于自定义与关键字一样的函数及变量
+println!("{:?}", b"This will look like numbers"); // 作为byte数组打印
+println!("{:X}", '행' as u32); // 打印16进制
+println!("Binary: {:b}, hexadecimal: {:x}, octal: {:o}", number, number, number); // 2 16 10
+println!("This is {1} {2}, son of {0} {2}.", father_name, son_name, family_name);
+println!("{},{{}}",a);  //{{}}转义字符,转义后为{}
+println!(
+        "{city1} is in {country} and {city2} is also in {country},
+but {city3} is not in {country}.",
+        city1 = "Seoul",
+        city2 = "Busan",
+        city3 = "Tokyo",
+        country = "Korea"
+    );
+println!("{:ㅎ^11}", letter); // ㅎㅎㅎㅎㅎaㅎㅎㅎㅎㅎ 前五个和后五个为ㅎ
+//------------------------//
+fn main() {
+    let title = "TODAY'S NEWS";
+    println!("{:-^30}", title); // no variable name, pad with -, put in centre, 30 characters long
+    let bar = "|";
+    println!("{: <15}{: >15}", bar, bar); // no variable name, pad with space, 15 characters each, one to the left, one to the right
+    let a = "SEOUL";
+    let b = "TOKYO";
+    println!("{city1:-<15}{city2:->15}", city1 = a, city2 = b); // variable names city1 and city2, pad with -, one to the left, one to the right
+}
+/**
+ * ---------TODAY'S NEWS---------
+ * |                            |
+ * SEOUL--------------------TOKYO
+ *
+ **/
+//------------------------//
+```
+
+
+
 ## 变量
 
 > 强类型语言
@@ -17,23 +62,31 @@ let a=56;				// 可以运行，是重复绑定，可以发生值、类型、可�
 let mut a = 123; 		// 可变变量,仅值可以修改
 const b:u64=123; 		// 定义为常量，无法重新绑定
 let b=56				// 编译错误
-println!("{},{{}}",a);  //{{}}转义字符,转义后为{}
 ```
 
 ## 数据类型
 
-- ### 整形
+ ### String
 
-  | 位长度  | 有符号 | 无符号 |
-  | :------ | :----- | :----- |
-  | 8-bit   | i8     | u8     |
-  | 16-bit  | i16    | u16    |
-  | 32-bit  | i32    | u32    |
-  | 64-bit  | i64    | u64    |
-  | 128-bit | i128   | u128   |
-  | arch    | isize  | usize  |
+  ```rust
+  // &str和String
+  
+  ```
 
-- ### 浮点型
+  
+
+ ### 整形
+
+| 位长度  | 有符号 | 无符号 |
+| :------ | :----- | :----- |
+| 8-bit   | i8     | u8     |
+| 16-bit  | i16    | u16    |
+| 32-bit  | i32    | u32    |
+| 64-bit  | i64    | u64    |
+| 128-bit | i128   | u128   |
+| arch    | isize  | usize  |
+
+ ### 浮点型
 
   ```rust
   let x = 2.0; // f64,更常用,效率相当
@@ -41,36 +94,52 @@ println!("{},{{}}",a);  //{{}}转义字符,转义后为{}
   ```
 
 
-- ### 布尔
+ ### 布尔
 
   ```rust
   let x:bool=false; // 只能是true,false
   ```
 
-- ### 字符
+ ### 字符
 
   ```rust
   let x:char='a'; // 必须使用utf8编码，4字节
   ```
 
-- ### 复合类型
+ ### 复合类型
 
-  ```rust
-  /* 元组 一组数据 可以包含不同类型 */
-  let tup:(u16,f32,char) = (500,6.5,'a');
-  let (x,y,z) = tup; // z='a'
+
+   #### 元组
+
+```rust
+/* 元组 一组数据 可以包含不同类型 */
+let tup:(u16,f32,char) = (500,6.5,'a');
+let (x,y,z) = tup; // z='a'
+```
+
+   #### 数组
+
+```rust
 /* 数组 同类型 */
-  let a = [1,2,3];
-  let b:[i16,3]=[1,2,3]; // 长度为3的i16类型的整数数组
-  let c = [3; 5];// 等同于 [3, 3, 3, 3, 3]
-  let mut d = [1, 2, 3];
-  d[0] = 4; 
-  ```
-  
+let a = [1,2,3];
+let b:[i16,3]=[1,2,3]; // 长度为3的i16类型的整数数组
+let c = [3; 5];// 等同于 [3, 3, 3, 3, 3]
+let mut d = [1, 2, 3];
+d[0] = 4; 
+let array_of_ten = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+
+let three_to_five = &array_of_ten[2..5];
+let start_at_two = &array_of_ten[1..];
+let end_at_five = &array_of_ten[..5];
+let everything = &array_of_ten[..];
+```
+
+
+
 
 ## 函数
 
-- ### 基本结构
+ ### 基本结构
 
 ```rust
 fn functionName(params) -> result{body;}
@@ -112,7 +181,7 @@ fn add(a: i32, b: i32) -> i32 {
 
   
 
-- 循环语句
+- ### 循环语句
 
   ```rust
   /* while */
@@ -163,8 +232,8 @@ fn add(a: i32, b: i32) -> i32 {
 
 ```rust
 let s1 = String::from("hello");
-let s2 = s1; 
-println!("{}, world!", s1); // 错误！s1 已经失效
+let s2 = s1; // 赋值给s2时把所有权交给s2，此时s1未赋值状态
+println!("{}, world!", s1); // 错误！s1 已经失效 
 
 let s1 = String::from("hello");
 let s2 = s1.clone();
@@ -180,7 +249,8 @@ println!("s1 = {}, s2 = {}", s1, s2);
 ```rust
 let s1 = String::from("hello");
 let s2 = &s1;
-println!("s1 is {}, s2 is {}", s1, s2);
+let s3 = &s1;
+println!("s1 is {}, s2 is {}， s2 is {}", s1, s2, s3);
 
 let s1 = String::from("hello");
 let s2 = &s1;
