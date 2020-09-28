@@ -25,9 +25,10 @@
   > find . -name '*.txt' # 查找当前目录下名称匹配的所有文件
   > ll ${pwd} # 查看目录详细信息
   > ls ## 查看基本信息
+  > tree /folder -L 1 ## 指定层数显示树结构
   ```
 
-## 操作
+## 网络
 
 * ### 抓包
 
@@ -47,6 +48,46 @@
   > scp root@host:/filepath /filepath2 ## 远程复制 filepath文件 到filepath2目录下
   > scp -r ... ## 复制文件夹
   ```
+  
+* ### IP
+
+  ```bash
+  # 方法1
+  > nmtui
+  > service network restart # systemctl restart network.service
+  ip addr show # 显示当前地址
+  ip addr add 192.168.1.24 dev eth1 添加地址
+  ip route add 192.0.2.0 via 10.0..0.1 dev eth0 # 添加主机路由
+  ```
+
+* ### curl
+
+* ### 其他
+
+  ```bash
+  ss -a(显示所有) -l(显示监听的) 显示连接
+  ss -t(显示tcp) -ta(显示所有tcp) -tl(显示本地)
+  lsof -i : 22 查看指定端口运行程序
+  ```
+
+  
+
+  
+
+## 账号
+
+```bash'
+ user(/group)add 用户名
+ useradd -G 组名 用户名
+ usermod -l 新用户 原用户
+ groupmod -n 新组 原组
+ userdel -r（删除用户自家目录）
+ 
+ whoami 显示当前用户
+ groups 显示当前用户所属组
+ touch 文件 创建文件夹
+```
+
 
 
 ## 权限

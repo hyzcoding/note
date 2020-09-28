@@ -64,3 +64,7 @@
 
 [Docker 入门教程]: http://www.ruanyifeng.com/blog/2018/02/docker-tutorial.html
 
+## 问题
+
+> 	cannot connect to the Docker daemon at unix:///var/run/docker.sock. Is the docker daemon running
+> 		问题 试试 sudo usermod -aG docker $USER 然后 sudo service docker start 说不定有惊喜哦

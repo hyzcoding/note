@@ -48,3 +48,28 @@ String … args --可变参数形式
   > 重载就是同样的一个方法能够根据输入数据的不同，做出不同的处理
   >
   > 重写就是当子类继承自父类的相同方法，输入数据一样，但要做出有别于父类的响应时，你就要覆盖父类方法
+
+## 命令行
+
+```bash
+
+java -jar app.jar -Dspring.profiles.active=dev --server.module
+
+# 测试环境
+
+java -jar app.jar -Dspring.profiles.active=qa
+java -jar app.jar -Dspring.profiles.active=qa --server.port=8060
+
+# 生产环境
+
+java -jar  -Dspring.profiles.active=prod,module /home/hyz/home/home-0.0.1-SNAPSHOT.jar
+
+
+java -jar  -Dspring.profiles.active=prod,module -Dlogging.level.com.pqtel.pqcloud.core.dao=DEBUG /home/hyz/home/home-0.0.1-SNAPSHOT.jar
+			
+java -jar  -Dspring.profiles.active=prod,module -Dserver.port=80   /home/hyz/home/home-0.0.1-SNAPSHOT.jar
+
+
+
+```
+

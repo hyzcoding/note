@@ -35,6 +35,7 @@
 
   ```java
   @Entity
+  @Table("t_person")
   @Getter
   @Setter
   public class Person {
@@ -69,9 +70,12 @@
       
       @Query(value = "SELECT * FROM person p WHERE name=:name")
       public Person findName(@Param("name") String name);
-   
+   	@Modifying
+  @Transactional 
+       @Query(value = "update Stu s set s.name = :#{#stu.name}, s.age = :#{#stu.age}, s.alias = :#{#stu.alias} where s.id = :#{#stu.id}",nativeQuery = true)
+    int updatePayState2(@Param("stu") Stu stu);
   
   ```
-
+  
   
 
