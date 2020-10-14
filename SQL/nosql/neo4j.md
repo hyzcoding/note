@@ -21,6 +21,7 @@
 - 复制数据库
 
   ```bash
+  ## 仅支持企业版
   $neo4j-home> bin/neo4j-admin copy --from-database=neo4j --to-database=copy --delete-nodes-with-labels="Cat,Dog"
   
   ```
@@ -60,12 +61,12 @@ CREATE (<node-name>:<label-name>) IF NOT EXISTS
 CREATE OR REPLACE (<node-name>:<label-name>)
 ```
 
-| 语法元素                              | 描述                                            |
-| ------------------------------------- | ----------------------------------------------- |
-| <node-name>                           | 它是我们将要创建的节点名称。                    |
-| <label-name>                          | 它是一个节点标签名称                            |
-| <Property1-name>...<Propertyn-name>   | 属性是键值对。 定义将分配给创建节点的属性的名称 |
-| <Property1-value>...<Propertyn-value> | 属性是键值对。 定义将分配给创建节点的属性的值   |
+| 语法元素                                | 描述                                            |
+| --------------------------------------- | ----------------------------------------------- |
+| `<node-name>`                           | 它是我们将要创建的节点名称。                    |
+| `<label-name>`                          | 它是一个节点标签名称                            |
+| `<Property1-name>...<Propertyn-name>`   | 属性是键值对。 定义将分配给创建节点的属性的名称 |
+| `<Property1-value>...<Propertyn-value>` | 属性是键值对。 定义将分配给创建节点的属性的值   |
 
 > ```CQL
 > CREATE (dept:Dept { deptno:10,dname:"Accounting",location:"Hyderabad" })
@@ -94,11 +95,11 @@ RETURN
  <node-name>.<propertyn-name>
 ```
 
-| 语法元素                            | 描述                                            |
-| ----------------------------------- | ----------------------------------------------- |
-| <node-name>                         | 它是我们将要创建的节点名称。                    |
-| <label-name>                        | 它是一个节点标签名称                            |
-| <Property1-name>...<Propertyn-name> | 属性是键值对。 定义将分配给创建节点的属性的名称 |
+| 语法元素                              | 描述                                            |
+| ------------------------------------- | ----------------------------------------------- |
+| `<node-name>`                         | 它是我们将要创建的节点名称。                    |
+| `<label-name>`                        | 它是一个节点标签名称                            |
+| `<Property1-name>...<Propertyn-name>` | 属性是键值对。 定义将分配给创建节点的属性的名称 |
 
 ```CQL
 // 查询节点
@@ -290,6 +291,38 @@ ASSERT <property_name> IS UNIQUE
 ### pom
 
 ```xml
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <java.version>1.8</java.version>
+		<neo4j.version>3.5.21</neo4j.version>
+    </properties> 
+<dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-neo4j</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-rest</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.neo4j.test</groupId>
+            <artifactId>neo4j-harness</artifactId>
+            <version>${neo4j.version}</version>
+            <scope>test</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.slf4j</groupId>
+                    <artifactId>slf4j-nop</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+    </dependencies>
 
 ```
 

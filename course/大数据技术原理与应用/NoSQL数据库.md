@@ -79,7 +79,7 @@
 
 ## NoSQL理论基础
 
-![image-20201014153136003](F:\project\note\_media\bigdata\image-20201014153136003.png)
+![image-20201014153136003](../../_media/bigdata/image-20201014153136003.png)
 
 三取二
 
