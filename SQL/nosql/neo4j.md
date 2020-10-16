@@ -59,6 +59,11 @@ CREATE (<node1-name>:<label1-name>)-
 // 如果不存在则创建
 CREATE (<node-name>:<label-name>) IF NOT EXISTS
 CREATE OR REPLACE (<node-name>:<label-name>)
+// 已知节点 创建关系
+MATCH (<node1-label-name>:<node1-name>),(<node2-label-name>:<node2-name>)
+CREATE  
+	(<node1-label-name>)-[<relationship-label-name>:<relationship-name>]->(<node2-label-name>)
+RETURN <relationship-label-name>
 ```
 
 | 语法元素                                | 描述                                            |
@@ -108,6 +113,8 @@ MATCH (dept: Dept)
 // 查询关系
 MATCH ( cc: CreditCard)-[r]-()
  RETURN r
+ // null 查询不到时返回空
+ OPTIONAL MATCH
 ```
 
 
@@ -120,6 +127,10 @@ MATCH ( cc: CreditCard)-[r]-()
 MATCH (emp:Employee) 
 WHERE emp.name = 'Abc'
 RETURN emp
+// 字典顺序大于Abc
+MATCH (emp:Employee) 
+WHERE emp.name > 'Abc'
+RETURN emp
 // 查询 null
 MATCH (e:Employee) 
 WHERE e.id IS NULL
@@ -128,8 +139,24 @@ RETURN e.id,e.name,e.sal,e.deptno
 MATCH (e:Employee) 
 WHERE e.id IN [123,124]
 RETURN e.id,e.name,e.sal,e.deptno
-// 模糊查询
+// 模糊查询 正则
 match(emp) where emp.name =~'.*haha.*' return emp
+// (?i) 大小写不敏感
+match(emp) where emp.name =~'(?h)aha.*' return emp
+// id查询
+MATCH (n) WHERE id(n)=251 RETURN n
+// starts with
+MATCH(n) where n.name STARTS WITH 'AA' RETURN n
+// not 
+MATCH(n) where NOT n.name STARTS WITH 'AA' RETURN n
+
+// 节点条件
+// 不带类型 直接关联 
+MATCH p=(a:Person{name:'Johan'}) -- (b:Person{name:'Ian'})
+// 不带类型关联
+MATCH p=(a:Person{name:'Johan'})-[*]-(b:Person{name:'Ian'})
+// 长度1-2
+MATCH p=(a:Person{name:'Johan'})-[:KNOWS*1..2]-(b:Person{name:'Ian'})
 ```
 
 ### DELETE
@@ -140,6 +167,9 @@ match(emp) where emp.name =~'.*haha.*' return emp
 MATCH (emp:Employee) 
 WHERE emp.name = 'Abc'
 DELETE emp
+
+// 删除节点及关系
+DETACH DELETE
 ```
 
 ## REMOVE
@@ -279,51 +309,166 @@ ASSERT <property_name> IS UNIQUE
   MATCH (a)-[movie:ACTION_MOVIES]->(b) 
   RETURN STARTNODE(movie),ID(movie),TYPE(movie)
   MATCH (a)-[movie:ACTION_MOVIES]->(b) 
-  RETURN ENDNODE(movie),ID(movie),TYPE(movie)
+  RETURN ENDNODE(movie) AS smovie,ID(movie),TYPE(movie)
+  ```
+
+- WITH... AS
+
+  ```CQL
+  //    WITH语句将分段的查询部分连接在一起，查询结果从一部分以管道形式传递给另外一部分作为开始点
+  MATCH (david { name: 'Tom Hanks' })--()--(otherPerson)
+  WITH otherPerson, count(*) AS foaf
+  WHERE foaf > 1
+  RETURN otherPerson
+  ```
+
+- COLLECT(n.title)
+
+  ```CQL
+  MATCH (am:Movie)<-[ai:ACTED_IN]-(p:Person)-[d:DIRECTED]->(dm:Movie) return p, collect(ai), collect(d), collect(am), collect(dm)
+  ```
+
+- UNWIND
+
+  ```cql
+  // 行转列
+  UNWIND [1, 2, 3] AS x
+  RETURN x
+  ```
+
+- CASE
+
+  ```CQL
+  MATCH(m)
+  RETURN 
+  CASE m.eyes
+  WHEN 'B'
+  THEN 1
+  ELSE 2 END AS reult
+  ```
+
+- 其他
+
+  ```CQL
+  all()
+  any()
+  none()
+  single()
+  exists()
+  size()
+  length()
+  type()
+  id()
+  coalesce()
+  head()
+  last()
+  timestamp()
+  startNode()
+  endNode()
+  properties()
+  toInt()
+  toFloat()
+  
+  nodes()
+  relastionships()
+  labels()
+  keys()
+  extract()
+  filter()
+  tail()
+  range()
+  reduce()
+  
+  abs()
+  ceil()
+  floor()
+  round()
+  sign()
+  rand()
+  log()
+  log10()
+  exp()
+  e()
+  sqrt()
+  sin()
+  cos()
+  tan()
+  cot()
   ```
 
   
 
-- 
-
 ## Spring Data JPA
+
+
 
 ### pom
 
 ```xml
     <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <java.version>1.8</java.version>
-		<neo4j.version>3.5.21</neo4j.version>
+		<java.version>8</java.version>
+		<maven-deploy-plugin.version>3.0.0-M1</maven-deploy-plugin.version>
+		<maven-failsafe-plugin.version>3.0.0-M3</maven-failsafe-plugin.version>
+		<maven-install-plugin.version>3.0.0-M1</maven-install-plugin.version>
+		<maven-surefire-plugin.version>3.0.0-M3</maven-surefire-plugin.version>
+		<neo4j.version>4.1.0</neo4j.version>
+		<spring-data-neo4j-rx.version>${revision}${sha1}${changelist}</spring-data-neo4j-rx.version>
+		<testcontainers.version>1.13.0</testcontainers.version>
     </properties> 
 <dependencies>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-neo4j</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-rest</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.neo4j.test</groupId>
-            <artifactId>neo4j-harness</artifactId>
-            <version>${neo4j.version}</version>
-            <scope>test</scope>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.slf4j</groupId>
-                    <artifactId>slf4j-nop</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
+<dependency>
+			<groupId>org.neo4j.springframework.data</groupId>
+			<artifactId>spring-data-neo4j-rx-spring-boot-starter</artifactId>
+			<version>${spring-data-neo4j-rx.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.neo4j.springframework.data</groupId>
+			<artifactId>spring-data-neo4j-rx-spring-boot-test-autoconfigure</artifactId>
+			<version>${spring-data-neo4j-rx.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.neo4j.test</groupId>
+			<artifactId>neo4j-harness</artifactId>
+			<version>${neo4j.version}</version>
+			<scope>test</scope>
+		</dependency>
     </dependencies>
-
+<profiles>
+		<profile>
+			<id>revisionMissing</id>
+			<activation>
+				<property>
+					<name>!revision</name>
+				</property>
+			</activation>
+			<properties>
+				<revision>1.1.1</revision>
+			</properties>
+		</profile>
+		<profile>
+			<id>sha1Missing</id>
+			<activation>
+				<property>
+					<name>!sha</name>
+				</property>
+			</activation>
+			<properties>
+				<sha1></sha1>
+			</properties>
+		</profile>
+		<profile>
+			<id>changelistMissing</id>
+			<activation>
+				<property>
+					<name>!changelist</name>
+				</property>
+			</activation>
+			<properties>
+				<changelist></changelist>
+			</properties>
+		</profile>
+	</profiles>
 ```
 
 ### application conf
@@ -331,22 +476,81 @@ ASSERT <property_name> IS UNIQUE
 ```properties
 #org.springframework.data.rest.level=DEBUG
 #debug: true
-spring.data.neo4j.uri=bolt://localhost
-spring.data.neo4j.username=neo4j
-spring.data.neo4j.password=password
+org.neo4j.driver.uri=bolt://192.168.0.61:7687
+org.neo4j.driver.authentication.username=neo4j
+org.neo4j.driver.authentication.password=password
+org.neo4j.driver.config.encrypted=false
+org.neo4j.data.database=neo4j
 
 ```
 
-### application run
+### support
 
 ```java
-@SpringBootApplication
-@EnableNeo4jRepositories("movies.spring.data.neo4j.repositories")
-public class SampleMovieApplication {
+@Component
+public class MovieModule extends SimpleModule {
 
-    public static void main(String[] args) {
-        SpringApplication.run(SampleMovieApplication.class, args);
-    }
+	public MovieModule() {
+
+		setMixInAnnotation(MovieEntity.class, MovieEntityMixin.class);
+		setMixInAnnotation(PersonEntity.class, PersonEntityMixin.class);
+
+		addDeserializer(Roles.class, new RoleDeserializer());
+	}
+
+	@JsonInclude(JsonInclude.Include.NON_EMPTY)
+	abstract static class MovieEntityMixin {
+		@JsonCreator MovieEntityMixin(@JsonProperty("title") final String title,
+			@JsonProperty("description") final String description) {
+		}
+
+		@JsonDeserialize(keyUsing = PersonEntityAsKeyDeSerializer.class)
+		@JsonSerialize(keyUsing = PersonEntityAsKeySerializer.class, contentUsing = RolesAsContentSerializer.class)
+		abstract Map<PersonEntity, Roles> getActorsAndRoles();
+
+	}
+
+	@JsonInclude(JsonInclude.Include.NON_EMPTY)
+	abstract static class PersonEntityMixin {
+		@JsonCreator PersonEntityMixin(@JsonProperty("name") final String name, @JsonProperty("born") final Long born) {
+		}
+	}
+
+	static class RoleDeserializer extends JsonDeserializer<Roles> {
+
+		@Override
+		public Roles deserialize(JsonParser jsonParser,
+			DeserializationContext deserializationContext) throws IOException {
+
+			return new Roles(jsonParser.readValueAs(new TypeReference<List<String>>() {
+			}));
+		}
+	}
+
+	static class PersonEntityAsKeyDeSerializer extends KeyDeserializer {
+
+		@Override
+		public Object deserializeKey(String key, DeserializationContext ctxt) {
+			return new PersonEntity(null, key);
+		}
+	}
+
+	static class PersonEntityAsKeySerializer extends JsonSerializer<PersonEntity> {
+
+		@Override
+		public void serialize(PersonEntity personEntity, JsonGenerator jsonGenerator,
+			SerializerProvider serializerProvider) throws IOException {
+			jsonGenerator.writeFieldName(personEntity.getName());
+		}
+	}
+
+	static class RolesAsContentSerializer extends JsonSerializer<Roles> {
+		@Override
+		public void serialize(Roles roles, JsonGenerator jsonGenerator,
+			SerializerProvider serializerProvider) throws IOException {
+			jsonGenerator.writeObject(roles.getRoles());
+		}
+	}
 }
 ```
 
@@ -355,48 +559,40 @@ public class SampleMovieApplication {
 - node
 
 ```java
-@NodeEntity
-public class Movie {
+@Node("Movie")
+public class MovieEntity {
 
 	@Id
-	@GeneratedValue
-	private Long id;
-	private String title;
-	private int released;
-	private String tagline;
+	private final String title;
 
-	@JsonIgnoreProperties("movie")
-	@Relationship(type = "ACTED_IN", direction = Relationship.INCOMING)
-	private List<Role> roles;
+	@Property("tagline")
+	private final String description;
 
-	public void addRole(Role role) {
-		if (this.roles == null) {
-			this.roles = new ArrayList<>();
-		}
-		this.roles.add(role);
+	@Relationship(type = "ACTED_IN", direction = INCOMING)
+	private Map<PersonEntity, Roles> actorsAndRoles = new HashMap<>();
+
+	@Relationship(type = "DIRECTED", direction = INCOMING)
+	private List<PersonEntity> directors = new ArrayList<>();
+
+	public MovieEntity(String title, String description) {
+		this.title = title;
+		this.description = description;
 	}
 }
 ```
 
 ```java
-@NodeEntity
-public class Person {
+@Node("Person")
+public class PersonEntity {
 
-    @Id
-    @GeneratedValue
-	private Long id;
-	private String name;
-	private int born;
+	@Id
+	private final String name;
 
-	@Relationship(type = "ACTED_IN")
-	private List<Movie> movies = new ArrayList<>();
+	private Integer born;
 
-	public Person() {
-	}
-
-	public Person(String name, int born) {
-		this.name = name;
+	public PersonEntity(Integer born, String name) {
 		this.born = born;
+		this.name = name;
 	}
 }
 ```
@@ -404,41 +600,121 @@ public class Person {
 - relationship
 
 ```java
-@RelationshipEntity(type = "ACTED_IN")
-public class Role {
+@RelationshipProperties
+public class Roles {
 
-    @Id
-    @GeneratedValue
-	private Long id;
-	private List<String> roles = new ArrayList<>();
+	private final List<String> roles;
 
-	@StartNode
-	private Person person;
-
-	@EndNode
-	private Movie movie;
-
-	public Role() {
+	public Roles(List<String> roles) {
+		this.roles = roles;
 	}
-    public Role(Movie movie, Person actor) {
-		this.movie = movie;
-		this.person = actor;
+
+	public List<String> getRoles() {
+		return roles;
 	}
 }
+
 ```
 
 ### repository
 
 ```java
-@RepositoryRestResource(collectionResourceRel = "movies", path = "movies")
-public interface MovieRepository extends Neo4jRepository<Movie, Long> {
+public interface PersonRepository extends Neo4jRepository<PersonEntity, String> {
 
-	Movie findByTitle(@Param("title") String title);
+	Optional<PersonEntity> findByName(String name);
 
-	Collection<Movie> findByTitleLike(@Param("title") String title);
-
-    @Query("MATCH (m:Movie)<-[r:ACTED_IN]-(a:Person) RETURN m,r,a LIMIT $limit")
-	Collection<Movie> findAllLimitBy(@Param("limit") int limit);
+	@Query("MATCH (am:Movie)<-[ai:ACTED_IN]-(p:Person)-[d:DIRECTED]->(dm:Movie) return p, collect(ai), collect(d), collect(am), collect(dm)")
+	List<PersonEntity> getPersonsWhoActAndDirect();
 }
+
+```
+
+### service
+
+```java
+@GetMapping("/by-title")
+MovieEntity byTitle(@RequestParam String title) {
+    return movieRepository.findOneByTitle(title)
+        .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+}
+
+@PostMapping
+String updatePerson(PersonEntity updatedPerson) {
+
+    this.personRepository.findByName(updatedPerson.getName()).ifPresent(p -> {
+        p.setBorn(updatedPerson.getBorn());
+        this.personRepository.save(p);
+    });
+
+    return "redirect:" + MvcUriComponentsBuilder.fromMethodName(
+        this.getClass(), "showPersonForm", updatedPerson).build();
+}
+```
+
+## *Neo4j Graph Data Science library*
+
+## 简介
+
+> neo4j 计算扩展依赖
+- 官方文档地址
+[英文原文](https://neo4j.com/docs/graph-data-science/current/introduction/)
+## 安装
+
+- 版本对应
+
+  | Neo4j Graph Data Science                                     | Neo4j version      |
+  | :----------------------------------------------------------- | :----------------- |
+  | `1.3.x`                                                      | `4.1.0` - `4.1.2`  |
+  | `1.3.x`                                                      | `4.0.0` - `4.0.8`  |
+  | `1.2.3` [[a\]](https://neo4j.com/docs/graph-data-science/current/installation/#ftn.deprecated) | `4.0.0` - `4.0.6`  |
+  | `1.2.0` - `1.2.2` [[a\]](https://neo4j.com/docs/graph-data-science/current/installation/#ftn.deprecated) | `4.0.0` - `4.0.4`  |
+  | `1.1.x`                                                      | `3.5.9` - `3.5.22` |
+  | `1.0.x` [[a\]](https://neo4j.com/docs/graph-data-science/current/installation/#ftn.deprecated) | `3.5.9` - `3.5.18` |
+  | [[a\] ](https://neo4j.com/docs/graph-data-science/current/installation/#deprecated)This version series is end-of-life and will not receive further patches. Please use a later version. |                    |
+
+- 下载安装包
+	
+	[地址](https://neo4j.com/download-center/#community)
+	
+- 修改配置文件
+
+  neo4j.conf
+
+  ```conf
+  dbms.security.procedures.unrestricted=gds.*
+  dbms.security.procedures.whitelist=gds.*
+  ```
+
+- 验证是否安装成功
+
+  ```CQL
+  RETURN gds.version()
+  CALL gds.list()
+  ```
+
+  
+
+## cypher 使用
+
+```CQL
+// 创建图 格式
+CALL gds.graph.create(
+    graphName: String,
+    nodeProjection: String, List or Map,
+    relationshipProjection: String, List or Map,
+    configuration: Map
+)
+// 示例 map
+CALL gds.graph.create(
+    'my-graph', {
+        Person: { label: 'Person' },
+        City: { label: 'City' }
+    },
+    '*'
+)
+YIELD graphName, nodeCount, relationshipCount;
+// 示例 list
+CALL gds.graph.create('my-graph', ['Person', 'City'], '*')
+YIELD graphName, nodeCount, relationshipCount;
 ```
 

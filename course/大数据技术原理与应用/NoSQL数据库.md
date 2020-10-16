@@ -83,5 +83,114 @@
 
 三取二
 
+​	选择：
+
+![image-20201015100350602](../../_media/bigdata/image-20201015100350602.png)
 
 
+
+- BASE  非关系型
+
+  - 基本可用 允许分区失败
+
+  - 软状态 部分时间不同步
+
+  - 最终一致性 弱一致性
+
+    - 因果一致性 ———— 通知其他进程后续访问最新值
+    - 读己之所写一致性 ———— 自己总可以访问已更新的值
+    - 单调读一致性
+    - 会话一致性 ———— 存于会话
+    - 单调写一致性 ———— 写操作按顺序执行
+
+    保证数据强一致性 
+
+    ​	W+R>N 强一致性
+
+- ACID 关系型
+
+## NewSQL数据库
+
+![image-20201015101239714](../../_media/bigdata/image-20201015101239714.png)
+
+| 应用场景   | 数据库支持 |
+| ---------- | ---------- |
+| 分析型应用 | NewSQL     |
+| 事务型应用 | OldSQL     |
+| 互联网应用 | NoSQL      |
+
+- 特性
+  - 扩展性好
+  - 强一致性
+  - 事务一致性
+  - 支持SQL查询
+  - 海量数据库
+
+![image-20201015101524747](../../_media/bigdata/image-20201015101524747.png)
+
+## MongoDB
+
+- 简介
+
+  > C++ 分布式 开源
+  >
+  > 高负载 可扩展
+
+  存储 二进制json文档
+
+- 特点
+
+  - 提供面向文档存储，操作简易
+  - 设置任意属性的索引，实现更好的排序
+  - 较好的水平可扩展性
+  - 丰富的查询表达式
+  - 可替换自定字段
+  - MapReduce 进行数据批量处理和聚合操作
+
+- 模型对应
+
+  | SQL术语     | MongoDB术语 | 说明                     |
+  | ----------- | ----------- | ------------------------ |
+  | database    | database    | 数据库                   |
+  | table       | collection  | 数据库表/集合            |
+  | row         | document    | 行/文档                  |
+  | column      | field       | 字段/域                  |
+  | index       | index       | 索引                     |
+  | table joins | -           | 表连接                   |
+  | primary key | primary key | mongoDB自动设置_id为主键 |
+
+- 连接
+
+  - shell 
+
+    mongodb://admin:123456@localhost/test
+
+    ```bash
+    use DATABASE_NAME ## 如果没有则自动创建
+    show dbs
+    db.COLLECTION_NAME.insert(document) ## 自动创建集合，用api则需先创建
+    ```
+
+  - java api
+
+    ```java
+    MongoClient mongoClient = new MongoClient("localhost",27017);
+    DB db = mongoClient.getDB("test");
+    boolean auth = db.authenticate("admin","password");
+    ```
+
+    ```java
+    DBCollection coll = db.createCollection("coll");
+    BasicDBObejct doc = new BasicDBObject("title","MongoDB").append("dis","no");
+    coll.insert(doc);
+    ```
+
+    
+
+  - Spring API
+
+    ```java
+    
+    ```
+
+    
