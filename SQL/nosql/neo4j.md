@@ -1,5 +1,11 @@
 # NEO4J
 
+## 图数据库
+
+> 节点和关系组成的数据模型，典型应用场景 社交网络、推荐系统、意向图、消费图、兴趣图、关系图谱
+>
+> 图计算
+
 ## 基础
 
 - 节点
@@ -56,8 +62,6 @@ CREATE (
 CREATE (<node1-name>:<label1-name>)-
 	[(<relationship-name>:<relationship-label-name>)]
 	->(<node2-name>:<label2-name>)
-// 如果不存在则创建
-CREATE (<node-name>:<label-name>) IF NOT EXISTS
 CREATE OR REPLACE (<node-name>:<label-name>)
 // 已知节点 创建关系
 MATCH (<node1-label-name>:<node1-name>),(<node2-label-name>:<node2-name>)
@@ -349,58 +353,29 @@ ASSERT <property_name> IS UNIQUE
 
 - 其他
 
-  ```CQL
-  all()
-  any()
-  none()
-  single()
-  exists()
-  size()
-  length()
-  type()
-  id()
-  coalesce()
-  head()
-  last()
-  timestamp()
-  startNode()
-  endNode()
-  properties()
-  toInt()
-  toFloat()
+  | 函数        | 说明               | 函数        | 说明         | 函数      | 说明               | 函数             | 说明         |
+  | ----------- | ------------------ | ----------- | ------------ | --------- | ------------------ | ---------------- | ------------ |
+  | all()       |                    | any()       |              | none()    |                    | single()         |              |
+  | exists()    |                    | size()      | 结果集个数   | length()  |                    | type()           | 关系类型     |
+  | id()        | 关系或节点id       | coalesce()  | 第一个非空值 | head()    | 第一个元素         | last()           | 最后一个元素 |
+  | timestamp() |                    | startNode() |              | endNode() |                    | properties()     | 实体转map    |
+  | toInt()     |                    | toFloat()   |              | nodes()   | 路径所有节点       | relastionships() | 路径所有关系 |
+  | labels()    | 节点所有标签       | keys()      | 属性名称     | extract() | 所有节点的某个属性 | filter()         |              |
+  | tail()      | 除第一个的所有元素 | range()     |              | reduce()  | 每个元素执行表达式 | abs()            |              |
+  | ceil()      |                    | floor()     |              | round()   |                    | sign()           | 数的正负值   |
+  | rand()      | 随机数             | log()       |              | log10()   |                    | exp()            |              |
+  | e()         |                    | sqrt()      |              | sin()     |                    | cos()            |              |
+  | tan()       |                    | cot()       |              | asin()    |                    | acos()           |              |
+  | atan()      |                    | atan2()     |              | pi()      |                    | degrees()        | 弧度转度     |
+| radians()   | 度转弧度           | haversin()  | 半正矢       | replace() |                    | substring()      |              |
+  | left()      | 左边指定长         | right()     |              | ltrim()   | 左除空             | rtrim()          |              |
+  | trim()      |                    | lower()     |              | upper()   |                    | split()          |              |
+  | reverse()   | 倒叙               | toString()  | 转字符串     |           |                    |                  |              |
   
-  nodes()
-  relastionships()
-  labels()
-  keys()
-  extract()
-  filter()
-  tail()
-  range()
-  reduce()
-  
-  abs()
-  ceil()
-  floor()
-  round()
-  sign()
-  rand()
-  log()
-  log10()
-  exp()
-  e()
-  sqrt()
-  sin()
-  cos()
-  tan()
-  cot()
-  ```
-
+   
   
 
 ## Spring Data JPA
-
-
 
 ### pom
 
@@ -718,3 +693,8 @@ CALL gds.graph.create('my-graph', ['Person', 'City'], '*')
 YIELD graphName, nodeCount, relationshipCount;
 ```
 
+## 集群搭建
+
+https://blog.csdn.net/thinkercode/article/details/46472209
+
+- 注：仅供企业版使用
