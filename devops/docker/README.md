@@ -39,6 +39,8 @@
 - 常用
 
   ```bash
+  docker run --name 名称 -v 容器目录:宿主机目录 -p容器端口:宿主机端口 -d 容器
+  docker ps -a --no-trunc ## 查看完整运行命令
   docker pull   # 拉取或者更新指定镜像
   docker push   # 将镜像推送至远程仓库
   docker rm     # 删除容器
@@ -50,17 +52,24 @@
   # 主机到容器：
   docker cp /www 96f7f14e99ab:/www/
   # 容器到主机：
-  docker cp 96f7f14e99ab:/www /tmp/
+docker cp 96f7f14e99ab:/www /tmp/
+  docker start id
+  docker restart id
+  docker exec -it id /bin/bash
+  docker logs [OPTIONS] CONTAINER #  --details 
   ```
-
+  
   
 
 ## 扩展
 
 - 运行状态
+
 - 与虚拟机的不同
 
 - Dockerfile
+
+  
 
 [Docker 入门教程]: http://www.ruanyifeng.com/blog/2018/02/docker-tutorial.html
 

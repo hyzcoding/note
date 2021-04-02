@@ -1,3 +1,4 @@
+# zookeeper
 ## 简介
 
 服务注册发现，分布式服务框架
@@ -16,8 +17,8 @@
 
  ```bash
 > cp conf/zoo_sample.cfg conf/zoo.cfg
-> bin/zkServer.sh
-> startbin/zkCli.sh
+> bin/zkServer.sh start
+> bin/zkCli.sh
  ```
 
 
@@ -49,4 +50,8 @@ server.3=127.0.0.1:16888:17888
 
 
 ## 使用
+
+
+
+## 原理解析
 

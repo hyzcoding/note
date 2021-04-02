@@ -23,5 +23,7 @@
 - NioSocketChannel 相当于 ractor中的 handle （句柄或描述符）
 - netty的线程模型类似于reactor的主从多reactor模式，只是<span style='color:red'>从reactor其实有多个</span>，一个NioEventLoop相当于一个reactor，负责一部分channel。而reactor的线程池对应于netty的用户自定义线程池。
 
+![](F:\project\note\_media\java\netty_reactor.jpg)
+
 [Netty线程模型总结]: https://blog.csdn.net/chenyun19890626/article/details/100991204
 

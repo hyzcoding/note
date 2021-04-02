@@ -1,5 +1,16 @@
 ## 查询
 
+- ### 安装与卸载
+
+  ```bash
+  yum install xxx
+  yum list installed|grep xxx
+  rpm -qa|grep xxx
+  yum remove xxx
+  ```
+
+  
+
 * ### 内存占用
 
   ```bash
@@ -12,13 +23,10 @@
   pstree： 查看进程树
   
   pmap： 根据进程ID查看进程信息
-  ```
-
   
-
-  `top` ---- 查看用户实时进程、IO信息 
-
-  ​			`q`键退出
+  top # ---- 查看用户实时进程、IO信息 
+  #q键退出
+  ```
 
 * ### 进程 `ps` 命令
 
@@ -36,6 +44,7 @@
 * ### 文件
 
   ```bash
+  > du -sh * # 查看当前目录下文件占用大小情况
   > find . -name '*.txt' # 查找当前目录下名称匹配的所有文件
   > ll ${pwd} # 查看目录详细信息
   > ls ## 查看基本信息
@@ -52,19 +61,16 @@
   > ipconfig ##查看网口
   > tcpdump -i eth0 port 8080 host 192.168.0.1 -w /home/hyz/tcp.pcap
   ```
-
-  
-
 * ### 远程
 
   ```bash
-  > systemctl start sshd ## 启动
-  > ssh -l username host ## 登录
-  > ssh root@host commandline ## 登录
-  > scp root@host:/filepath /filepath2 ## 远程复制 filepath文件 到filepath2目录下
-  > scp -r ... ## 复制文件夹
+   > systemctl start sshd ## 启动
+    > ssh -l username host ## 登录
+    > ssh root@host commandline ## 登录
+    > scp root@host:/filepath /filepath2 ## 远程复制 filepath文件 到filepath2目录下
+    > scp -r ... ## 复制文件夹
   ```
-  
+
 * ### IP
 
   ```bash
@@ -88,11 +94,9 @@
 
   
 
-  
-
 ## 账号
 
-```bash'
+```bash
  user(/group)add 用户名
  useradd -G 组名 用户名
  usermod -l 新用户 原用户
@@ -113,7 +117,7 @@
   更改用户组权限
   
   ``` bash
-  > chown -R root: foo ## 在用户名后跟冒号[:]运行该命令将同时设置用户和组所有权。
+  > chown -R root: foo # 在用户名后跟冒号[:]运行该命令将同时设置用户和组所有权。
   ```
 
 * ### chmod
@@ -130,6 +134,7 @@
 ## 分区
 
 ```bash
+df # 查看分区信息
 umount /home #卸载/home，如果无法卸载，先终止使用/home文件系统的进程
 lvremove /dev/centos/home #删除/home所在的lv
 lvextend -L +50G /dev/centos/root #扩展/root所在的lv，增加50G
@@ -150,7 +155,7 @@ awk -F"separ" '{pattern + action}' {filenames}
  awk -F"=" '{ print $2 }' aa.txt
  // bb
 
-
+cat filename|tail -10 // 显示最后10行
 ```
 
 ## 脚本

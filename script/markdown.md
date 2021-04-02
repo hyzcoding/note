@@ -40,7 +40,7 @@ sequenceDiagram
     end
     
     PDFWorker-->>PDFThread: Worker响应执行结果
-	Note right of PDFWorker: 注意参数校验 <br/>文件格式校验
+	Note right of PDFWorker: 注意参数校验 <br>文件格式校验
 
 ```
 
@@ -75,4 +75,6 @@ sequenceDiagram
 [^要注明的文本]: 
 
 [1]: http://www.google.com/
+```
+
 ```

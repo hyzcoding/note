@@ -47,6 +47,18 @@ for(int i=0;i<n;i*=2){
    }
 ```
 
+*T(n)=O(n!)*
+
+```java
+fn(int n){
+    if(i>0){
+		return i-=fn(n);
+    }else{
+        return 0;
+    }
+}
+```
+
 
 
 ## 复杂度比较

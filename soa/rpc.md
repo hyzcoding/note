@@ -25,3 +25,11 @@ RPC(Remote Procedure Call) 远程过程调用，即节点之间的请求服务�
 - HttpClient（通常用于RESTful风格的调用，跨语言，基于http和json）
 - EJB远程接口调用
 - jdk原生（HttpURLConnection）
+
+## 注册与发现服务
+
+- zookeeper
+- eureka
+- consul
+- etcd
+- nacos

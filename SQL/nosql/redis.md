@@ -65,3 +65,4 @@ localhost:6379> set key value			## 设置值
 
 ## 集群搭建
 
+- 哨兵模式

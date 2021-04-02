@@ -1,4 +1,4 @@
-# Werbsocket
+# Websocket
 
 ## 简介
 
@@ -15,7 +15,7 @@
 
 
 
-## 自定义的WebSocket
+## 原生自定义的WebSocket
 
 - websocket配置
 
@@ -111,6 +111,67 @@ public class SocketService {
       }
   ```
 
+
+## spring的websocket
+
+- config
+
+  ```java
+  @Configuration
+  public class WebSocketConfig implements WebSocketConfigurer {
+  @Override
+  public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
+      registry.addHandler(myHandler(), "/")
+          .setAllowedOrigins("*");
+  }
+  
+  @Bean
+   public WebSocketHandler myHandler() {
+       return new MessageHandler();
+   }
+  }
+  ```
+
+  
+
+- handler
+
+  ```java
+  @Component
+  public class MessageHandler extends TextWebSocketHandler {
+     private List<WebSocketSession> clients = new ArrayList<>();
+  
+     @Override
+     public void afterConnectionEstablished(WebSocketSession session) {
+         clients.add(session);
+         System.out.println("uri :" + session.getUri());
+         System.out.println("连接建立: " + session.getId());
+         System.out.println("current seesion: " + clients.size());
+     }
+  
+     @Override
+     public void afterConnectionClosed(WebSocketSession session, CloseStatus status) {
+         clients.remove(session);
+         System.out.println("断开连接: " + session.getId());
+     }
+  
+     @Override
+     protected void handleTextMessage(WebSocketSession session, TextMessage message) {
+         String payload = message.getPayload();
+         Map<String, String> map = JSONObject.parseObject(payload, HashMap.class);
+         System.out.println("接受到的数据" + map);
+         clients.forEach(s -> {
+             try {
+                 System.out.println("发送消息给: " + session.getId());
+                 s.sendMessage(new TextMessage("服务器返回收到的信息," + payload));
+             } catch (Exception e) {
+                 e.printStackTrace();
+             }
+         });
+     }
+  }
+  ```
+
   
 
 ## 基于STOMP协议的WebSocket
@@ -179,3 +240,14 @@ var socket = new SockJS('/gs-guide-websocket');
 
 ```
 
+
+
+## 分布式部署方案
+
+
+
+
+
+参考文档：
+
+[spring boot 集成 websocket 的四种方式](https://www.cnblogs.com/kiwifly/p/11729304.html)

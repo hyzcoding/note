@@ -29,6 +29,11 @@ mybatis:
 @Mapper
 public interface PersonDao {
     int insertOne(Person person);
+    @Results(id = "personResult", value = {
+            @Result(property = "id", column = "id", id = true),
+            @Result(property = "personName", column = "person_name")
+    })
+    @Select("<script>SELECT * FROM table_person </script>")
     Person selectOne(Person person);
 }
 ```
@@ -119,7 +124,7 @@ public interface PersonDao {
 
 ## 注解
 
-
+[映射注解示例](https://mybatis.org/mybatis-3/zh/java-api.html)
 
 
 

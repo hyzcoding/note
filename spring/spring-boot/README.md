@@ -191,3 +191,14 @@ public class ExampleApplication {
 
 
 
+## 停止前操作
+
+```java
+    @Bean
+    public DisposableBean disposableBean() {
+        return () -> {
+           xxx
+        };
+    }
+```
+
