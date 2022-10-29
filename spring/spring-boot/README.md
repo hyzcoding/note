@@ -172,9 +172,17 @@ public class NameService{
 }
 ```
 
+### 复杂异步查询
 
+1. 启动时初始化线程池
 
+2. 使用线程池
 
+3. 组合结果
+
+   CompletableFuture
+
+   https://zhuanlan.zhihu.com/p/344431341
 
 ## 无持久层启动
 
